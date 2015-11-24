@@ -204,7 +204,10 @@ Adafruit_LEDBackpack::Adafruit_LEDBackpack(void) {
 void Adafruit_LEDBackpack::begin(uint8_t _addr = 0x70) {
   i2c_addr = _addr;
 
-  Wire.begin();
+  // Initialize the I2C bus if not already enabled
+  if ( !Wire.isEnabled() ) {
+    Wire.begin();
+  }
 
   Wire.beginTransmission(i2c_addr);
   Wire.write(0x21);  // turn on oscillator
